@@ -1,15 +1,17 @@
 package otus.components.popups;
 
-import otus.components.implementation.AbsComponent;
+import com.google.inject.Inject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
+import otus.components.implementation.AbsComponent;
+import otus.service.GuiceScoped;
 
-public class CookiesPopUpComponent extends AbsComponent<CookiesPopUpComponent> implements IPopUp{
+public class CookiesPopUpComponent extends AbsComponent<CookiesPopUpComponent> implements IPopUp {
   private final String cookiesPopupLocator = "//*[contains (text(),'Посещая наш сайт, вы принимаете')]";
   private final String cookiesAcceptButtonLocator = "//*[contains (text(),'Посещая наш сайт, вы принимаете')]//following::button";
 
-  public CookiesPopUpComponent(EventFiringWebDriver driver) {
-    super(driver);
+  @Inject
+  public CookiesPopUpComponent(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
 
   public void closeCookiesPopup() {

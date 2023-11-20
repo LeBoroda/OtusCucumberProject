@@ -1,10 +1,12 @@
 package otus.components.implementation;
 
-import org.openqa.selenium.support.events.EventFiringWebDriver;
+import com.google.inject.Inject;
 import otus.pages.implementation.AbsWebPageObject;
+import otus.service.GuiceScoped;
 
 public abstract class AbsComponent<T> extends AbsWebPageObject {
-  public AbsComponent(EventFiringWebDriver driver) {
-    super(driver);
+  @Inject
+  public AbsComponent(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
 }

@@ -1,16 +1,20 @@
 package otus.pages.implementation;
 
+import com.google.inject.Inject;
 import otus.annotations.Path;
 import otus.components.popups.CookiesPopUpComponent;
 import otus.exceptions.PathSupportException;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
+import otus.service.GuiceScoped;
 
 public class AbsBasePage<T> extends AbsWebPageObject {
 
   private static final String BASE_URL = System.getProperty("base.url", "https://otus.ru");
+  private GuiceScoped guiceScoped;
 
-  public AbsBasePage(EventFiringWebDriver driver) {
-    super(driver);
+  @Inject
+  public AbsBasePage(GuiceScoped guiceScoped) {
+    super(guiceScoped);
+    this.guiceScoped = guiceScoped;
   }
 
   public String adjustUrl() {
@@ -31,8 +35,8 @@ public class AbsBasePage<T> extends AbsWebPageObject {
     return (T) this;
   }
 
-  protected void closeCookiesPopUpComponent(){
-    CookiesPopUpComponent popUpComponent = new CookiesPopUpComponent(driver);
+  protected void closeCookiesPopUpComponent() {
+    CookiesPopUpComponent popUpComponent = new CookiesPopUpComponent(guiceScoped);
     popUpComponent.closeCookiesPopup();
   }
 }

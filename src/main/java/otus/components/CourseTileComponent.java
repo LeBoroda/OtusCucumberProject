@@ -1,16 +1,17 @@
 package otus.components;
 
+import com.google.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import otus.components.implementation.AbsComponent;
 import otus.data.MonthNameData;
+import otus.exceptions.SortingParameterException;
+import otus.service.GuiceScoped;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import otus.exceptions.SortingParameterException;
 
 public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
 
@@ -18,8 +19,9 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
   private final String courseNameLocator = String.format("%s//div//h5", courseTileLocator);
   private final String courseDateLocator = String.format("(%s//span[contains(text(),'С')])", courseTileLocator) + "[%d]";
 
-  public CourseTileComponent(EventFiringWebDriver driver) {
-    super(driver);
+  @Inject
+  public CourseTileComponent(GuiceScoped guiceScoped) {
+    super(guiceScoped);
   }
 
   public List<WebElement> getCourseTiles() {
