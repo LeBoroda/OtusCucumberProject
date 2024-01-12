@@ -7,8 +7,6 @@ import otus.exceptions.SortingParameterException;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.*;

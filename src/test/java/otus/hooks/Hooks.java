@@ -2,7 +2,6 @@ package otus.hooks;
 
 import io.cucumber.java.After;
 import otus.di.GuiceScoped;
-
 import javax.inject.Inject;
 
 public class Hooks {

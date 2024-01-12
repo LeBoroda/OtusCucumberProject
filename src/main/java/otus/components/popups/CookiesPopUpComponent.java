@@ -2,10 +2,8 @@ package otus.components.popups;
 
 import otus.components.implementation.AbsComponent;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import otus.di.GuiceScoped;
-
 import javax.inject.Inject;
 
 public class CookiesPopUpComponent extends AbsComponent<CookiesPopUpComponent> implements IPopUp {

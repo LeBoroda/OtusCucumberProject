@@ -3,10 +3,8 @@ package otus.pages;
 import otus.annotations.Path;
 import otus.components.CourseTileComponent;
 import otus.data.CourseTitleData;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 import otus.di.GuiceScoped;
 import otus.pages.implementation.AbsBasePage;
-
 import javax.inject.Inject;
 
 @Path("/")

@@ -4,7 +4,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import otus.di.GuiceScoped;
 import otus.waiters.StandardWaiter;
-
 import javax.inject.Inject;
 
 public class AbsWebPageObject {

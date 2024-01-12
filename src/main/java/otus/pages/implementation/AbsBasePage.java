@@ -4,8 +4,6 @@ import otus.annotations.Path;
 import otus.components.popups.CookiesPopUpComponent;
 import otus.di.GuiceScoped;
 import otus.exceptions.PathSupportException;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-
 import javax.inject.Inject;
 
 public class AbsBasePage<T> extends AbsWebPageObject {
