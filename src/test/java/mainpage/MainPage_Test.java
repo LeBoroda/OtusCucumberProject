@@ -1,13 +1,13 @@
 package mainpage;
 
-import annotations.Driver;
-import annotations.Page;
-import data.CourseTitleData;
-import extensions.UIExtensions;
+import otus.annotations.Driver;
+import otus.annotations.Page;
+import otus.data.CourseTitleData;
+import otus.extensions.UIExtensions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
-import pages.MainPage;
+import otus.pages.MainPage;
 
 @ExtendWith(UIExtensions.class)
 public class MainPage_Test {
