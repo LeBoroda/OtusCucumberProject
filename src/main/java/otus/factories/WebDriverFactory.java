@@ -4,7 +4,6 @@ import otus.exceptions.BrowserSupportException;
 import otus.factories.implementation.ChromeSettings;
 import otus.factories.implementation.FireFoxSettings;
 import otus.factories.implementation.IBrowserSettings;
-import otus.factories.implementation.OperaSettings;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -30,9 +29,8 @@ public class WebDriverFactory {
         return driver;
       }
       case "opera": {
-        IBrowserSettings operaSettings = new OperaSettings();
         WebDriverManager.operadriver().setup();
-        driver = new EventFiringWebDriver(new OperaDriver(operaSettings.configureDriver()));
+        driver = new EventFiringWebDriver(new OperaDriver());
         return driver;
       }
       default: {

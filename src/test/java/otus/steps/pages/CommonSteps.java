@@ -1,11 +1,16 @@
 package otus.steps.pages;
 
-import io.cucumber.java.ru.Пусть;
+import com.google.inject.Inject;
+import io.cucumber.java.ru.Дано;
+import otus.di.GuiceScoped;
 
 public class CommonSteps {
 
-  @Пусть("Открыт браузер")
-  public void openBrowser(){
-    System.out.println("Открываем браузер");
+  @Inject
+  private GuiceScoped guiceScoped;
+
+  @Дано("Открываю браузер {string}")
+  public void openBrowser(String browserName) {
+    guiceScoped.choseBrowser(browserName);
   }
 }
