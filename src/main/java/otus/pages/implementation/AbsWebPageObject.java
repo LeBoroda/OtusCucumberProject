@@ -15,8 +15,8 @@ public class AbsWebPageObject {
   @Inject
   public AbsWebPageObject(GuiceScoped guiceScoped) {
     this.driver = guiceScoped.driver;
-    this.actions = new Actions(driver);
-    this.waiter = new StandardWaiter(driver);
+    this.actions = new Actions(guiceScoped.driver);
+    this.waiter = new StandardWaiter(guiceScoped.driver);
   }
 
 }

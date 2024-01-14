@@ -1,6 +1,7 @@
 package otus.components;
 
 import otus.components.implementation.AbsComponent;
+import otus.data.CourseTitleData;
 import otus.data.MonthNameData;
 import otus.di.GuiceScoped;
 import otus.exceptions.SortingParameterException;
@@ -79,6 +80,11 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
     return result;
   }
 
+  public CourseTitleData choseCourseTitle(String courseTitleString) {
+    String[] courseTitles = courseTitleString.split(",");
+    String chosenCourseTitleString = courseTitles[new Random().nextInt(courseTitles.length)].trim();
+    return CourseTitleData.fromString(chosenCourseTitleString);
+  }
   public void getCourseByTitle(String courseTitle) {
     //List of all course tiles on the page
     List<WebElement> courses = getCourseTiles();

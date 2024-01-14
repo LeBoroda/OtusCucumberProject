@@ -16,6 +16,7 @@ public class MainPageSteps {
 
   @Тогда("Ищу страницу курса {string}")
   public void findCourseByTitle(String courseTitle) {
+    mainPage.findCourseByTitle(courseTitle);
   }
 
 }

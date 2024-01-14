@@ -9,7 +9,7 @@ import java.util.Locale;
 public class GuiceScoped {
   public EventFiringWebDriver driver = null;
 
-  public void choseBrowser(String browserName){
+  public void choseBrowser(String browserName) {
     System.setProperty("browser", browserName.toLowerCase(Locale.ROOT));
     this.driver = new WebDriverFactory().createDriver();
   }

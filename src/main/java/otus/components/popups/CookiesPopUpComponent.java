@@ -30,4 +30,6 @@ public class CookiesPopUpComponent extends AbsComponent<CookiesPopUpComponent> i
   public void popUpShouldBeVisible() {
     waiter.waitForElementNonVisibility(driver.findElement(By.xpath(cookiesPopupLocator)));
   }
+
+
 }

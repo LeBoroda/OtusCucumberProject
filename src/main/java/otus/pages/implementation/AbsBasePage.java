@@ -32,9 +32,4 @@ public class AbsBasePage<T> extends AbsWebPageObject {
     driver.get(adjustUrl() + getPath());
     return (T) this;
   }
-
-  protected void closeCookiesPopUpComponent(){
-    CookiesPopUpComponent popUpComponent = new CookiesPopUpComponent(new GuiceScoped());
-    popUpComponent.closeCookiesPopup();
-  }
 }
