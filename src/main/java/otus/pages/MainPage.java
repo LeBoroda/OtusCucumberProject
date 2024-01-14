@@ -6,6 +6,7 @@ import otus.data.CourseTitleData;
 import otus.di.GuiceScoped;
 import otus.pages.implementation.AbsBasePage;
 import javax.inject.Inject;
+import java.util.Random;
 
 @Path("/")
 public class MainPage extends AbsBasePage<MainPage> {
@@ -14,12 +15,19 @@ public class MainPage extends AbsBasePage<MainPage> {
     super(guiceScoped);
   }
 
+  public CourseTitleData choseCourseTitle(String courseTitleString) {
+    String[] courseTitles = courseTitleString.split(",");
+    String chosenCourseTitleString = courseTitles[new Random().nextInt(courseTitles.length)];
+    return CourseTitleData.fromString(chosenCourseTitleString);
+  }
   public void findCourseByTitle(CourseTitleData courseTitle) {
     closeCookiesPopUpComponent();
     CourseTileComponent courseTile = new CourseTileComponent(new GuiceScoped());
     courseTile.getCourseByTitle(courseTitle.getName());
   }
-
+  public void findCourseByTitle(String courseTitle) {
+    findCourseByTitle(choseCourseTitle(courseTitle));
+  }
   public void getLatestCourse() {
     closeCookiesPopUpComponent();
     CourseTileComponent courseTile = new CourseTileComponent(new GuiceScoped());

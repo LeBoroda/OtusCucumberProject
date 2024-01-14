@@ -1,14 +1,14 @@
 package otus.hooks;
 
-import io.cucumber.java.AfterStep;
+import io.cucumber.java.After;
 import otus.di.GuiceScoped;
 import javax.inject.Inject;
 
 public class Hooks {
   @Inject
   private GuiceScoped guiceScoped;
-  @AfterStep
-  public void afterEach(){
+  @After
+  public void afterAll(){
     if(guiceScoped.driver != null) {
       guiceScoped.driver.close();
       guiceScoped.driver.quit();
