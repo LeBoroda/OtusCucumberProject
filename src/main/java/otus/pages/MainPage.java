@@ -16,8 +16,8 @@ public class MainPage extends AbsBasePage<MainPage> {
   }
 
   public CourseTitleData choseCourseTitle(String courseTitleString) {
-    String[] courseTitles = courseTitleString.split(",");
-    String chosenCourseTitleString = courseTitles[new Random().nextInt(courseTitles.length)];
+    String[] courseTitles = courseTitleString.trim().split(",");
+    String chosenCourseTitleString = courseTitles[new Random().nextInt(courseTitles.length)].trim();
     return CourseTitleData.fromString(chosenCourseTitleString);
   }
   public void findCourseByTitle(CourseTitleData courseTitle) {
