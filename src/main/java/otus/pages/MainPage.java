@@ -26,7 +26,7 @@ public class MainPage extends AbsBasePage<MainPage> {
   }
 
   public void findCourseByTitle(String courseTitle) {
-    findCourseByTitle(courseTileComponent.choseCourseTitle(courseTitle));
+    findCourseByTitle(courseTileComponent.chooseCourseTitle(courseTitle));
   }
 
   public void getLatestCourse() {

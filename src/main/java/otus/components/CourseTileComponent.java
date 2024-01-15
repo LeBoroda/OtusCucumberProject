@@ -18,7 +18,6 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
   private final String courseTileLocator = "(//a[contains(@href,'https://otus.ru/lessons/')])/ancestor::div[1]//a[not(contains(@href,'#'))]";
   private final String courseNameLocator = String.format("%s//div//h5", courseTileLocator);
   private final String courseDateLocator = String.format("(%s//span[contains(text(),'С') or contains(text(), 'В ')])", courseTileLocator) + "[%d]";
-
   //List of all course start dates from the page
   private List<LocalDate> courseDates = new ArrayList<>();
 
@@ -61,12 +60,10 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
       } else {
         yearNumber = "2024";
       }
-
       //Collect string value of date and convert to LocalDate
       String stringDate = String.format("%s-%s-%s", yearNumber, getMonthNumber(eventStringDate[2]), dayNumber);
       result = LocalDate.parse(stringDate);
     }
-
     /*
      ** If the course start date indicated as a period.
      ** Start day is set as 15th day of a month
@@ -87,7 +84,7 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
    ** In case there are several course titles requested in feature file,
    ** chose 1 title and convert into CourseTitleData element
    */
-  public CourseTitleData choseCourseTitle(String courseTitleString) {
+  public CourseTitleData chooseCourseTitle(String courseTitleString) {
     String[] courseTitles = courseTitleString.split(",");
     String chosenCourseTitleString = courseTitles[new Random().nextInt(courseTitles.length)].trim();
     return CourseTitleData.fromString(chosenCourseTitleString);
@@ -102,7 +99,6 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
     for (int i = 0; i < courses.size(); i++) {
       coursesWithTitles.put(courses.get(i), getCourseName(i + 1));
     }
-
     //Choose the map entry that matches given course name
     Map.Entry<WebElement, String>
         chosenNameTile = coursesWithTitles.entrySet()
@@ -170,7 +166,8 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
     );
     List<WebElement> courseTiles = getCourseTiles();
     for (int i = 1; i <= courseTiles.size(); i++) {
-      if(!getCourseDate(i).isBefore(desiredDateLT)) {
+      if (!getCourseDate(i).isBefore(desiredDateLT)) {
+        Assertions.assertFalse(desiredDateLT.isAfter(getCourseDate(i)));
         System.out.printf("Курс '%s' стартует %s%n", getCourseName(i), getCourseDate(i));
       }
     }
