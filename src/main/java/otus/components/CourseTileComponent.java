@@ -1,13 +1,13 @@
 package otus.components;
 
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import otus.components.implementation.AbsComponent;
 import otus.data.CourseTitleData;
 import otus.data.MonthNameData;
 import otus.di.GuiceScoped;
 import otus.exceptions.SortingParameterException;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.*;
@@ -18,6 +18,9 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
   private final String courseTileLocator = "(//a[contains(@href,'https://otus.ru/lessons/')])/ancestor::div[1]//a[not(contains(@href,'#'))]";
   private final String courseNameLocator = String.format("%s//div//h5", courseTileLocator);
   private final String courseDateLocator = String.format("(%s//span[contains(text(),'С') or contains(text(), 'В ')])", courseTileLocator) + "[%d]";
+
+  //List of all course start dates from the page
+  private List<LocalDate> courseDates = new ArrayList<>();
 
   @Inject
   public CourseTileComponent(GuiceScoped guiceScoped) {
@@ -80,11 +83,16 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
     return result;
   }
 
+  /*
+   ** In case there are several course titles requested in feature file,
+   ** chose 1 title and convert into CourseTitleData element
+   */
   public CourseTitleData choseCourseTitle(String courseTitleString) {
     String[] courseTitles = courseTitleString.split(",");
     String chosenCourseTitleString = courseTitles[new Random().nextInt(courseTitles.length)].trim();
     return CourseTitleData.fromString(chosenCourseTitleString);
   }
+
   public void getCourseByTitle(String courseTitle) {
     //List of all course tiles on the page
     List<WebElement> courses = getCourseTiles();
@@ -109,19 +117,8 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
   }
 
   public void getCourseByDate(String choiceCondition) {
-    //List of all courses on page
-    List<WebElement> courses = getCourseTiles();
-    //Map of WebElement course tiles and LocalDate course tiles respective course start dates
-    Map<WebElement, LocalDate> coursesWithDates = new HashMap<>();
-    //Lit of all course start dates from the page
-    List<LocalDate> courseDates = new ArrayList<>();
-    // Fill Map and List
-    for (int i = 0; i < courses.size(); i++) {
-      LocalDate courseDate = getCourseDate(i + 1);
-      coursesWithDates.put(courses.get(i), courseDate);
-      courseDates.add(courseDate);
-    }
-    Collections.sort(courseDates);
+    // Map of all course tiles and respective course start dates
+    Map<WebElement, LocalDate> coursesWithDates = getCourseTilesWithDates();
 
     //Chose earliest or latest course tile and compare date on it with the earliest/latest date form the list
     WebElement result = null;
@@ -143,5 +140,39 @@ public class CourseTileComponent extends AbsComponent<CourseTileComponent> {
     }
     actions.moveToElement(result).build().perform();
     result.click();
+  }
+
+  /*
+   * Get Map of course Tiles and their start dates
+   * Also get sorted list of course start dates
+   */
+  private Map<WebElement, LocalDate> getCourseTilesWithDates() {
+    //Make sure list of course start dates is empty
+    courseDates.clear();
+    //List of all courses on page
+    List<WebElement> courses = getCourseTiles();
+    //Map of WebElement course tiles and LocalDate course tiles respective course start dates
+    Map<WebElement, LocalDate> coursesWithDates = new HashMap<>();
+    // Fill Map and List
+    for (int i = 0; i < courses.size(); i++) {
+      LocalDate courseDate = getCourseDate(i + 1);
+      coursesWithDates.put(courses.get(i), courseDate);
+      courseDates.add(courseDate);
+    }
+    Collections.sort(courseDates);
+    return coursesWithDates;
+  }
+
+  public void getCourseNameAndStartDateAfterDate(String desiredDate) {
+    String[] desiredDateInfo = desiredDate.split(" ");
+    LocalDate desiredDateLT = LocalDate.parse(
+        String.format("2024-%s-%s", getMonthNumber(desiredDateInfo[1]), desiredDateInfo[0])
+    );
+    List<WebElement> courseTiles = getCourseTiles();
+    for (int i = 1; i <= courseTiles.size(); i++) {
+      if(!getCourseDate(i).isBefore(desiredDateLT)) {
+        System.out.printf("Курс '%s' стартует %s%n", getCourseName(i), getCourseDate(i));
+      }
+    }
   }
 }

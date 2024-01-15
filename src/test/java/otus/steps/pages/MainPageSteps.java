@@ -19,4 +19,9 @@ public class MainPageSteps {
     mainPage.findCourseByTitle(courseTitle);
   }
 
+  @Тогда("Ищу курсы стартующие с {string}")
+  public void findCoursesByTitle(String dateOfStart) {
+    mainPage.getCourseNameAndStartDates(dateOfStart);
+  }
+
 }
