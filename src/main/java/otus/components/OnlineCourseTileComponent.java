@@ -57,13 +57,13 @@ public class OnlineCourseTileComponent extends AbsComponent<OnlineCourseTileComp
           .filter(x -> x.getValue().equals(onlineCoursePrice.get(onlineCoursePrice.size() - 1)))
           .findAny().get();
       Assertions.assertEquals((int) result.getValue(), onlineCoursePrice.get(onlineCoursePrice.size() - 1));
-      System.out.printf("Самый дорогой курс %s с ценой %d ₽%n", result.getKey(), result.getValue());
+      System.out.printf("Самый дорогой курс %s с ценой %d руб%n", result.getKey(), result.getValue());
     } else if (priceRange.equals("cheap")) {
       Map.Entry<String, Integer> result = onlineCourseInfo.entrySet().stream()
           .filter(x -> x.getValue().equals(onlineCoursePrice.get(0)))
           .findAny().get();
       Assertions.assertEquals((int) result.getValue(), onlineCoursePrice.get(0));
-      System.out.printf("Самый дешевый курс %s с ценой %d ₽%n", result.getKey(), result.getValue());
+      System.out.printf("Самый дешевый курс %s с ценой %d руб%n", result.getKey(), result.getValue());
     }
   }
 }
